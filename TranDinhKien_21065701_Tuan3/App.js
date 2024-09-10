@@ -1,28 +1,61 @@
-import { Text, View, StyleSheet, Image,Pressable } from 'react-native';
-
+import { Text, View, StyleSheet, Image,Pressable,TouchableOpacity } from 'react-native';
+import Screen1 from './pages/screen1';
+import Screen2 from './pages/screen2';
+import Screen3 from './pages/screen3';
+import Screen4 from './pages/screen4';
+import React, { useState } from 'react';
 
 export default function App() {
+  const [page, setPage] = useState(0); 
+
+  const totalPages = 4; 
+
+  const nextPage = () => {
+    if (page < totalPages - 1) {
+      setPage(page + 1);
+    }
+  };
+
+  const previousPage = () => {
+    if (page > 0) {
+      setPage(page - 1);
+    }
+  };
+
+  const renderPage = () => {
+    switch (page) {
+      case 0:
+        return <Screen1/>;
+      case 1:
+        return <Screen2/>;
+      case 2:
+        return <Screen3/>;
+      case 3:
+        return <Screen4/>
+      default:
+        return null;
+    }
+  };
   return (
     <View style={styles.container}>
-        <View style={{flex:2, alignItems:'center'}}>
-          <Image source={require('./assets/Ellipse8.png')} style={{height:140,width:140}}/>
-        </View>
-        <View style={{flex:1, alignItems:'center'}}>
-          <Text style={styles.headTitle}>GROW</Text>
-          <Text style={styles.headTitle}>YOUR BUSINESS</Text>
-        </View>
-        <View style={{flex:1,alignItems:'center'}}>
-          <Text style={styles.text}>We will help you to grow your business using</Text>
-          <Text style={styles.text}>online server</Text>
-        </View>
-        <View style={{flex:1, flexDirection:'row',alignItems:'center',justifyContent:'space-around'}}>
-          <Pressable style={styles.button}>
-            <Text style={{fontSize:20,fontWeight:700}}>LOGIN</Text>
-          </Pressable>
-          <Pressable style={styles.button}>
-            <Text style={{fontSize:20,fontWeight:700}}>SIGN UP</Text>
-          </Pressable>
-        </View>
+      <View style={styles.contentContainer}>{renderPage()}</View>
+      <View style={styles.navContainer}>
+        <TouchableOpacity
+          style={[styles.button, page === 0 && styles.disabledButton]} 
+          onPress={previousPage}
+          disabled={page === 0}
+        >
+          <Text style={styles.buttonText}>Previous</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.button, page === totalPages - 1 && styles.disabledButton]} 
+          onPress={nextPage}
+          disabled={page === totalPages - 1}
+        >
+          <Text style={styles.buttonText}>Next</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -31,23 +64,33 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#00CCF9',
-    padding: 8,
+    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
   },
-  button:{
-    backgroundColor:'#E3C000',
-    height:48,
-    width:119,
-    borderRadius:10,
-    alignItems:'center',
-    justifyContent:'center'
+  contentContainer: {
+    backgroundColor: '#fff',
+    width: '100%',
+    height:'90%',
+    alignItems: 'center',
+    marginBottom: 10,
   },
-  headTitle:{
-    fontSize:25,
-    fontWeight:700
+  navContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
   },
-  text:{
-    fontSize:15,
-    fontWeight:700
-  }
+  button: {
+    backgroundColor: '#ffbee8',
+    padding: 10,
+    borderRadius: 8,
+    alignItems: 'center',
+    width: '25%',
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 15,
+  },
+  disabledButton: {
+    backgroundColor: '#ccc', 
+  },
 });

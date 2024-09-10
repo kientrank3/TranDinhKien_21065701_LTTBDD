@@ -3,8 +3,8 @@ import { Text, View, StyleSheet, Image,Pressable } from 'react-native';
 export default function AssetExample() {
   return (
     <View style={styles.container}>
-        <View style={{flex:2, alignItems:'center'}}>
-          <Image source={require('/assets/Ellipse8.png')} style={{height:140,width:140}}/>
+        <View style={{flex:2, alignItems:'center',justifyContent:'center'}}>
+          <Image source={require('../assets/Ellipse8.png')} style={{height:140,width:140}}/>
         </View>
         <View style={{flex:1, alignItems:'center'}}>
           <Text style={styles.headTitle}>GROW</Text>
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 8,
-    background:'linear-gradient(90deg, rgba(199,244,246,1) 0%, rgba(209,244,246,1) 50%, rgba(0,204,249,1) 100%)'
+    background:'linear-gradient(180deg, rgba(199,244,246,1) 0%, rgba(209,244,246,1) 35%, rgba(0,204,249,1) 100%)'
   },
   button:{
     backgroundColor:'#E3C000',
